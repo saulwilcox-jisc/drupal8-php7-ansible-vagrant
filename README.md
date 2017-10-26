@@ -1,5 +1,5 @@
 # drupal-bootstrap
-Quick-start for Drupal sites: bootstrap and provision a development VM with Ansible and Vagrant, using a Debian 8 box. Includes SOLR.
+Quick-start for Drupal sites: bootstrap and provision a development VM with Ansible and Vagrant, using a Debian 8 box.
 
 You will need:
 - Ansible (2.3.0.0)
@@ -21,29 +21,18 @@ For a terminal inside the VM:
 
 $ vagrant ssh
 
-Then try:
-
-php -f bootstrap-drupal.php
-
-This will help with the final steps to clone + configure the site.
-
-In the Vagrantfile you'll see that the VM has a fixed IP of 77.77.77.7.
+In the Vagrantfile you'll see that the VM has a fixed IP of 88.88.88.8.
 Typically this would be mapped to something more meaningful in your /etc/hosts file.
 
 You'll still need to run the drupal install script, clone sites & modules and import a database.
 
-Make sure all the Search indexes are activated and present on the Solr core - note that 'drush searchapi-index 0 0 100' probably won't index everything - it's better to index them in the admin interface.
-
-When that's all done, the usual 'drush cc all' command should give you a working site.
+When that's all done, the usual 'drush cr all' command should give you a working site.
 
 Troubleshooting shared folders:
+- NFS works best and is recommended.
 - Try using the rsync folder type in the Vagrantfile instead of VFS:
   config.vm.synced_folder "~/project", "/var/www", type: 'rsync'
   Then use 'vagrant rsync auto' to watch the files and sync as they change.
-- You can keep your VirtualBox Guest additions up to date automatically using the following plugin:
-  vagrant plugin install vagrant-vbguest
 
-Known isssues / TODOs:
-- Currently only drupal 7
-- Solr port is set to 8080 by default, should be 8983 (change it here: /admin/config/search/search_api/server/[server]/edit)
-# drupal8-php7-ansible-vagrant
+You can keep your VirtualBox Guest additions up to date automatically using the following plugin:
+vagrant plugin install vagrant-vbguest
