@@ -1,0 +1,13 @@
+- name: Add sury repo
+  apt_repository: repo='deb https://packages.sury.org/php/ jessie main' state=present
+
+- name: Install php and modules
+  apt: name={{item}} state=present
+  with_items:
+    - php7.1
+    - php7.1-pgsql
+    - php-mysql
+    - php7.1-gd
+    - php7.1-mbstring
+    - php7.1-soap
+    - php7.1-xml

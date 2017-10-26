@@ -1,0 +1,34 @@
+---
+- name: Update apt
+  shell: "sudo apt-get update"
+
+- name: Install apache
+  apt: name=apache2 state=installed update_cache=yes
+
+- name: Enable mod_rewrite
+  apache2_module: name=rewrite state=present
+
+- name: Install repo management helpers
+  apt: name={{item}} state=present
+  with_items:
+    - apt-transport-https
+    - lsb-release
+    - ca-certificates
+
+- name: Add sury.org gpg
+  shell: "sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg"
+
+- name: Set Apache run user to vagrant
+  lineinfile: dest=/etc/apache2/envvars regexp='^(.*)export APACHE_RUN_USER=' line='export APACHE_RUN_USER=vagrant'
+
+- name: Copy jisc-ac-uk Virtualhost template
+  template: src=myjisc.conf.j2 dest=/etc/apache2/sites-available/myjisc.conf mode=0600
+
+- name: Disable default site
+  shell: "a2dissite 000-default.conf"
+
+- name: Enable myjisc
+  shell: "a2ensite myjisc.conf"
+
+- name: Restart apache
+  service: name=apache2 state=restarted
