@@ -7,5 +7,7 @@
 - name: Make composer.phar runnable from anywhere by adding to PATHed location as 'composer'
   shell: "mv composer.phar /usr/local/bin/composer"
 
-- name: Add composer package path
-  shell: "export PATH=\"$HOME/.composer/vendor/bin:$PATH\""
+- name: Add composer's bin dir to system-wide $PATH (for drush)
+  copy:
+    dest: /etc/profile.d/custom-path.sh
+    content: 'PATH=$PATH:/home/vagrant/.composer/vendor/bin'

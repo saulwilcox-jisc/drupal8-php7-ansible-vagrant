@@ -1,5 +1,5 @@
 - name: Add (latest) drush to /var/www/myjisc/composer.json and install
-  shell: "cd /var/www/myjisc && composer require drush/drush"
+  shell: "cd /var/www/myjisc && composer global require drush/drush"
 
 - name: Restart apache
   service: name=apache2 state=restarted
