@@ -11,3 +11,6 @@
   copy:
     dest: /etc/profile.d/custom-path.sh
     content: 'PATH=$PATH:/home/vagrant/.composer/vendor/bin'
+
+- name: Add simplesaml with composer
+  shell: "composer require simplesamlphp/simplesamlphp"
