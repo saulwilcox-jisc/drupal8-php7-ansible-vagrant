@@ -6,6 +6,11 @@ You will need:
 - Virtualbox (5.1)
 - Vagrant (1.9.5)
 
+Example Install on Mac using homebrew:
+brew cask install virtualbox
+brew cask install vagrant
+brew install ansible
+
 First get a vagrant base box:
 vagrant box add --name debian-jessie https://github.com/kraksoft/vagrant-box-debian/releases/download/8.1.0/debian-8.1.0-amd64.box
 
@@ -24,7 +29,8 @@ $ vagrant ssh
 In the Vagrantfile you'll see that the VM has a fixed IP of 88.88.88.8.
 Typically this would be mapped to something more meaningful in your /etc/hosts file.
 
-You'll still need to run the drupal install script, clone sites & modules and import a database.
+You may need to run the drupal install script if you don't have a complete sites folder already.
+Then clone the codebase and import a database dump.
 
 When that's all done, the usual 'drush cr all' command should give you a working site.
 
